@@ -1,10 +1,7 @@
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import utils.PropertyReader;
 
@@ -25,14 +22,14 @@ public class BaseTest {
         Configuration.clickViaJs = true;
         Configuration.savePageSource = false;
         Configuration.timeout = 10000;
-        Configuration.pollingInterval = 500; // ждет появляющийся объект
 
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("headless");
 //        Configuration.browserCapabilities = new ChromeOptions();
     }
+
     @AfterClass(alwaysRun = true)
-    public void tearDown(){
+    public void tearDown() {
         getWebDriver().quit();
 
         WebDriver driver = new ChromeDriver();
