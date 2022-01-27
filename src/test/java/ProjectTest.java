@@ -3,8 +3,11 @@ import models.ProjectFactory;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class ProjectTest extends BaseTest {
 
@@ -19,11 +22,14 @@ public class ProjectTest extends BaseTest {
         newProjectPage.createProject(project);
         projectPage.openProjectPage();
         projectPage.checkProject(project);
-        $(By.xpath("//*[@id=\"react-app\"]/div/div/div/div/table/tbody/tr[3]/td[1]/button/i")).shouldNotBe(visible);
-        $(By.xpath("//*[@id=\"react-app\"]/div/div/div/div/table/tbody/tr[3]/td[8]/div/a/i")).click();
-        $(By.xpath("//*[@id=\"react-app\"]/div/div/div/div/table/tbody/tr[3]/td[8]/div/div/div[2]/a")).click();
-        $(By.xpath("//button[normalize-space()='Delete project']")).click();
-        $(By.xpath("//*[@id=\"react-app\"]/div/div/div/div/h1")).shouldBe(visible);
+
+        String projectName = project.getProjectName();
+        $(By.xpath("//tr[td/div/a[@class=\"defect-title\"][text()=\"" + projectName + "\"]]/td/div/a[i]")).click();
+        $(By.xpath("//div[@class='dropdown-menu dropdown-menu-end show']//div[1]")).shouldBe(visible, Duration.ofSeconds(5));
+        $(By.xpath("//i[@class=\"fa fa-ellipsis-h\"]")).click();
+        $(By.xpath("//a[contains(@href,'delete')]")).click();
+        $(By.xpath("//button[normalize-space()=\"Delete project\"][1]")).click();
+
     }
 
     @Test
@@ -32,6 +38,7 @@ public class ProjectTest extends BaseTest {
         $("#inputEmail").sendKeys(email);
         $(By.xpath("//*[@id='inputPassword']")).setValue(password).submit();
         $(By.id("createButton")).shouldBe(visible);
-        $(By.xpath("//input[@name='title']")).setValue("fakeProject").pressEnter();
+        $(By.xpath("//input[@name='title']")).setValue("FakeProject").pressEnter();
+//        $(By.name("FakeProject")).shouldNotBe(exist);
     }
 }
