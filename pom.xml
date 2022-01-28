@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <rest-assured.version>4.4.0</rest-assured.version>
+        <rest-assured.version>4.5.0</rest-assured.version>
         <webdrivermanager.version>4.4.1</webdrivermanager.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -43,7 +43,7 @@
                 <configuration>
                     <argLine>
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar
-                        -Xmx256m
+                        -Xmx1024m
                     </argLine>
                 </configuration>
             </plugin>
